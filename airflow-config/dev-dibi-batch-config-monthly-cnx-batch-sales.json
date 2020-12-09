@@ -1,0 +1,35 @@
+{
+	"gcpConnId": "gcp_d360_dev_npe",
+	"project": "usis-d360-dev-npe-3082",
+	"region": "us-east1",
+	"tempLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/temp/",
+	"subnetwork": "https://www.googleapis.com/compute/v1/projects/efx-gcp-usis-svpc-npe-4d36/regions/us-east1/subnetworks/usis-d360-dev-npe-net11-0",
+	"sqlDbConfig": "dev-dibi-batch-verizonds-sql-db-config",
+	"sqlDbPassword": "dev-dibi-batch-verizonds-sql-db-password",
+	"archivePath": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/archive",
+	"rootFolder": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying",
+	"MonthlyCnxBatchSalesTrack": {
+		"templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/monthlyCnxBatchSalesTrack",
+		"reportGenPath": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/reports",
+		"summaryUpdateFileName": "MonthlyCNXBatchSalesTrackSummaryUpdate.txt",
+		"writeToXlsFileName": "Monthly_CNX_Batch_Sales_Track",
+		"suffix": ".xls"
+	},
+	"commons": {
+		"pgp": {
+			"pgpCryptionEnabled": "false",
+			"pgpSigned": "false"
+		},
+		"vault": {
+			"hcvKeystoreGcsBucketName": "usis-dibi-landing-zone-npe",
+			"hcvKeystoreGcsFilePath": "dev/security/truststore/cacerts",
+			"hcvUrl": "https://vault.uat.use1.crypto.gcp.efx",
+			"hcvNamespace": "usis-batchproducts/batch/d360/npe",
+			"hcvSecretPath": "dibi-dev01/smoke-test-pgpkeys-dibi-01",
+			"hcvEngineVersion": "2",
+			"hcvGcpRole": "d360-dibi-dev",
+			"hcvGcpProjectId": "usis-d360-dev-npe-3082",
+			"hcvGcpServiceAccount": "usis-d360-cardlytics-npe@usis-d360-dev-npe-3082.iam.gserviceaccount.com"
+		}
+	}
+}

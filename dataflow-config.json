@@ -1,0 +1,856 @@
+<<<<<<< HEAD
+{
+    "groupId": "com.equifax.dibibatch.gcp",
+    "artifactId": "varizon-cnx-keying",
+    "dev": {
+        "gcsBucket": "gs://usis-dibi-landing-zone-npe",
+        "arguments": {
+            "runner": "DataflowRunner",
+            "project": "usis-d360-dev-npe-3082",
+            "subnetwork": "https://www.googleapis.com/compute/v1/projects/efx-gcp-usis-svpc-npe-4d36/regions/us-east1/subnetworks/usis-d360-dev-npe-net11-0",
+            "region": "us-east1",
+            "usePublicIps": "false",
+            "serviceAccount": "usis-d360-cardlytics-npe@usis-d360-dev-npe-3082.iam.gserviceaccount.com"
+        },
+        "templates": [
+            {
+                "templateName": "loadVztDataShareTablePipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVztDataShareTablePipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztDataShareTablePipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "dbSchema": "verizonds"
+                }
+            },
+			
+			
+            {
+                "templateName": "extractFromStDsOutToLoadVztDataSharePipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractFromStDsOutToLoadVztDataSharePipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractFromStDsOutToLoadVztDataSharePipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "dbSchema": "verizonds"
+					
+                }
+            },
+            {
+                "templateName": "extractDICNX0000002EfxVzwFilePipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractDICNX0000002EfxVzwFilePipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDICNX0000002EfxVzwFilePipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp"
+                }
+            },
+			
+			{
+                "templateName": "extractVzDsFuzzyReqExtractPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractVzDsFuzzyReqExtractPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractVzDsFuzzyReqExtractPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vwVztDatashareDbSchema": "verizonds"
+                }
+            },
+			
+            {
+                "templateName": "loadVZTBatchSummarryStatsTablePipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVZTBatchSummarryStatsTablePipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVZTBatchSummarryStatsTablePipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "vztDataShareDbSchema": "verizonds",
+					"vztBatchSummaryDbSchema": "verizonds",
+					"vztBatchDbSchema": "verizonds",
+					"vztBatchStatsDbSchema": "verizonds"
+					
+                }
+            },
+			{
+                "templateName": "extractStDsFuzzyRespToLoadVztDataSharePipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractStDsFuzzyRespToLoadVztDataSharePipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractStDsFuzzyRespToLoadVztDataSharePipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDatashareDbSchema": "verizonds"
+                }
+            },
+			
+			{
+                "templateName": "loadVztBatchAndVztSummaryPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVztBatchAndVztSummaryPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztBatchAndVztSummaryPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDataShareDbSchema": "verizonds",
+					"vztBatchSummaryDbSchema": "verizonds",
+					"vztBatchDbSchema": "verizonds"
+                }
+            },
+			
+			{
+                "templateName": "extractInactivatedOverrideRecordsPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractInactivatedOverrideRecordsPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractInactivatedOverrideRecordsPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vwVztDatashareDbSchema": "verizonds"
+					
+                }
+            },
+			
+			{
+                "templateName": "loadFromInactiveOvrerrideRecordsPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadFromInactiveOvrerrideRecordsPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadFromInactiveOvrerrideRecordsPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDataShareDbSchema": "verizonds",
+					"connexusKeyOverrideDbSchema": "verizonds"
+					
+                }
+            },
+			
+			{
+                "templateName": "extractCnxOverrideFileFromIntaractiveOverrideFilePipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractCnxOverrideFileFromIntaractiveOverrideFilePipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractCnxOverrideFileFromIntaractiveOverrideFilePipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp"
+					
+                }
+            },
+			
+			{
+                "templateName": "extractDivzcommsR00VztDsProdKrspPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractDivzcommsR00VztDsProdKrspPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDivzcommsR00VztDsProdKrspPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vwVztDataShareCnxRespDbSchema": "verizonds"					
+                }
+            },
+			
+			{
+                "templateName": "loadTablesAsPerRowGeneratorPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadTablesAsPerRowGeneratorPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadTablesAsPerRowGeneratorPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztStatDbSchema": "verizonds",
+					"vztBatchDbSchema": "verizonds",
+					"vztSummaryDbSchema": "verizonds"					
+                }
+            },
+			{
+                "templateName": "loadVztDataShareCnxRepoFromVwVztDataSharePipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVztDataShareCnxRepoFromVwVztDataSharePipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztDataShareCnxRepoFromVwVztDataSharePipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vzDataShareCnxRepodbSchema": "verizonds",
+					"vwVztDatashareDbSchema": "verizonds" 					
+                }
+            },
+			{
+                "templateName": "extractDataShareSsaConInputPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractDataShareSsaConInputPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDataShareSsaConInputPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vzDatashareCnxRepoDbSchema": "verizonds"					
+                }
+            },
+			{
+                "templateName": "deleteVzDataShareRepoPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.DeleteVzDataShareRepoPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/deleteVzDataShareRepoPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDataShareCnxRepoDbSchema": "verizonds"					
+                }
+            }
+			
+			
+			
+        ],
+        "sqlConfig": {
+            "sqlFolder": "{{GCS_BUCKET}}/ATT/att-gbs-moody/commons-sql-input/"
+        },
+        "dagConfig": {
+            "dagsFolder": "gs://us-east1-shared-private-com-9aa38d38-bucket/dags/"
+        }
+    },
+    "qa": {
+      "gcsBucket": "gs://usis-d360-dibi-data-npe",
+        "arguments": {
+            "runner": "DataflowRunner",
+            "project": "usis-d360-dev-npe-3082",
+            "subnetwork": "https://www.googleapis.com/compute/v1/projects/efx-gcp-usis-svpc-npe-4d36/regions/us-east1/subnetworks/usis-d360-dev-npe-net11-0",
+            "region": "us-east1",
+            "numWorkers": "3",
+            "maxNumWorkers": "3",
+            "usePublicIps": "false",
+            "serviceAccount": "usis-d360-cardlytics-npe@usis-d360-dev-npe-3082.iam.gserviceaccount.com"
+        },
+       "templates": [
+            {
+                "templateName": "loadVztDataShareTablePipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVztDataShareTablePipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztDataShareTablePipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "dbSchema": "verizonds"
+                }
+            },
+			
+			
+            {
+                "templateName": "extractFromStDsOutToLoadVztDataSharePipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractFromStDsOutToLoadVztDataSharePipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractFromStDsOutToLoadVztDataSharePipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "dbSchema": "verizonds"
+					
+                }
+            },
+            {
+                "templateName": "extractDICNX0000002EfxVzwFilePipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractDICNX0000002EfxVzwFilePipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDICNX0000002EfxVzwFilePipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp"
+                }
+            },
+			
+			{
+                "templateName": "extractVzDsFuzzyReqExtractPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractVzDsFuzzyReqExtractPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractVzDsFuzzyReqExtractPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vwVztDatashareDbSchema": "verizonds"
+                }
+            },
+			
+            {
+                "templateName": "loadVZTBatchSummarryStatsTablePipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVZTBatchSummarryStatsTablePipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVZTBatchSummarryStatsTablePipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "vztDataShareDbSchema": "verizonds",
+					"vztBatchSummaryDbSchema": "verizonds",
+					"vztBatchDbSchema": "verizonds",
+					"vztBatchStatsDbSchema": "verizonds"
+					
+                }
+            },
+			{
+                "templateName": "extractStDsFuzzyRespToLoadVztDataSharePipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractStDsFuzzyRespToLoadVztDataSharePipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractStDsFuzzyRespToLoadVztDataSharePipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDatashareDbSchema": "verizonds"
+                }
+            },
+			
+			{
+                "templateName": "loadVztBatchAndVztSummaryPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVztBatchAndVztSummaryPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztBatchAndVztSummaryPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDataShareDbSchema": "verizonds",
+					"vztBatchSummaryDbSchema": "verizonds",
+					"vztBatchDbSchema": "verizonds"
+                }
+            },
+			
+			{
+                "templateName": "extractInactivatedOverrideRecordsPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractInactivatedOverrideRecordsPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractInactivatedOverrideRecordsPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vwVztDatashareDbSchema": "verizonds"
+					
+                }
+            },
+			
+			{
+                "templateName": "loadFromInactiveOvrerrideRecordsPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadFromInactiveOvrerrideRecordsPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadFromInactiveOvrerrideRecordsPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDataShareDbSchema": "verizonds",
+					"connexusKeyOverrideDbSchema": "verizonds"
+					
+                }
+            },
+			
+			{
+                "templateName": "extractCnxOverrideFileFromIntaractiveOverrideFilePipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractCnxOverrideFileFromIntaractiveOverrideFilePipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractCnxOverrideFileFromIntaractiveOverrideFilePipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp"
+					
+                }
+            },
+			
+			{
+                "templateName": "extractDivzcommsR00VztDsProdKrspPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractDivzcommsR00VztDsProdKrspPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDivzcommsR00VztDsProdKrspPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vwVztDataShareCnxRespDbSchema": "verizonds"					
+                }
+            },
+			
+			{
+                "templateName": "loadTablesAsPerRowGeneratorPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadTablesAsPerRowGeneratorPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadTablesAsPerRowGeneratorPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztStatDbSchema": "verizonds",
+					"vztBatchDbSchema": "verizonds",
+					"vztSummaryDbSchema": "verizonds"					
+                }
+            },
+			{
+                "templateName": "loadVztDataShareCnxRepoFromVwVztDataSharePipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVztDataShareCnxRepoFromVwVztDataSharePipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztDataShareCnxRepoFromVwVztDataSharePipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vzDataShareCnxRepodbSchema": "verizonds",
+					"vwVztDatashareDbSchema": "verizonds" 					
+                }
+            },
+			{
+                "templateName": "extractDataShareSsaConInputPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractDataShareSsaConInputPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDataShareSsaConInputPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vzDatashareCnxRepoDbSchema": "verizonds"					
+                }
+            },
+			{
+                "templateName": "deleteVzDataShareRepoPipeLine",
+                "mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.DeleteVzDataShareRepoPipeLine",
+                "arguments": {
+                    "templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/deleteVzDataShareRepoPipeLine",
+                    "stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+                    "tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+                    "gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDataShareCnxRepoDbSchema": "verizonds"					
+                }
+            }
+			
+        ],
+        "sqlConfig": {
+            "sqlFolder": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/commons-sql-input/"
+        },
+        "dagConfig": {
+            "dagsFolder": "gs://us-east1-shared-private-com-9aa38d38-bucket/dags/"
+        }
+    },
+    "uat": {},
+    "prod": {}
+}
+=======
+{
+	"groupId": "com.equifax.dibibatch.gcp",
+	"artifactId": "varizon-cnx-keying",
+	"dev": {
+		"gcsBucket": "gs://usis-dibi-landing-zone-npe",
+		"arguments": {
+			"runner": "DataflowRunner",
+			"project": "usis-d360-dev-npe-3082",
+			"subnetwork": "https://www.googleapis.com/compute/v1/projects/efx-gcp-usis-svpc-npe-4d36/regions/us-east1/subnetworks/usis-d360-dev-npe-net11-0",
+			"region": "us-east1",
+			"numWorkers": "3",
+			"maxNumWorkers": "3",
+			"usePublicIps": "false",
+			"serviceAccount": "usis-d360-cardlytics-npe@usis-d360-dev-npe-3082.iam.gserviceaccount.com"
+		},
+		"templates": [
+			{
+				"templateName": "loadVztDataShareTablePipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVztDataShareTablePipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztDataShareTablePipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"dbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "extractFromStDsOutToLoadVztDataSharePipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractFromStDsOutToLoadVztDataSharePipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractFromStDsOutToLoadVztDataSharePipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"dbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "extractDICNX0000002EfxVzwFilePipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractDICNX0000002EfxVzwFilePipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDICNX0000002EfxVzwFilePipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp"
+				}
+			},
+			{
+				"templateName": "extractVzDsFuzzyReqExtractPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractVzDsFuzzyReqExtractPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractVzDsFuzzyReqExtractPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vwVztDatashareDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "loadVZTBatchSummarryStatsTablePipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVZTBatchSummarryStatsTablePipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVZTBatchSummarryStatsTablePipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDataShareDbSchema": "verizonds",
+					"vztBatchSummaryDbSchema": "verizonds",
+					"vztBatchDbSchema": "verizonds",
+					"vztBatchStatsDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "extractStDsFuzzyRespToLoadVztDataSharePipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractStDsFuzzyRespToLoadVztDataSharePipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractStDsFuzzyRespToLoadVztDataSharePipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDatashareDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "loadVztBatchAndVztSummaryPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVztBatchAndVztSummaryPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztBatchAndVztSummaryPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDataShareDbSchema": "verizonds",
+					"vztBatchSummaryDbSchema": "verizonds",
+					"vztBatchDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "extractInactivatedOverrideRecordsPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractInactivatedOverrideRecordsPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractInactivatedOverrideRecordsPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vwVztDatashareDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "loadFromInactiveOvrerrideRecordsPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadFromInactiveOvrerrideRecordsPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadFromInactiveOvrerrideRecordsPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDataShareDbSchema": "verizonds",
+					"connexusKeyOverrideDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "extractCnxOverrideFileFromIntaractiveOverrideFilePipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractCnxOverrideFileFromIntaractiveOverrideFilePipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractCnxOverrideFileFromIntaractiveOverrideFilePipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp"
+				}
+			},
+			{
+				"templateName": "extractDivzcommsR00VztDsProdKrspPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractDivzcommsR00VztDsProdKrspPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDivzcommsR00VztDsProdKrspPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vwVztDataShareCnxRespDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "loadTablesAsPerRowGeneratorPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadTablesAsPerRowGeneratorPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadTablesAsPerRowGeneratorPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztStatDbSchema": "verizonds",
+					"vztBatchDbSchema": "verizonds",
+					"vztSummaryDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "loadVztDataShareCnxRepoFromVwVztDataSharePipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVztDataShareCnxRepoFromVwVztDataSharePipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztDataShareCnxRepoFromVwVztDataSharePipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vzDataShareCnxRepodbSchema": "verizonds",
+					"vwVztDatashareDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "extractDataShareSsaConInputPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractDataShareSsaConInputPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDataShareSsaConInputPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vzDatashareCnxRepoDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "deleteVzDataShareRepoPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.DeleteVzDataShareRepoPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/deleteVzDataShareRepoPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDataShareCnxRepoDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "monthlyCnxBatchSalesTrack",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.MonthlyCnxBatchSalesTrack",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/monthlyCnxBatchSalesTrack",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"verizonDataShareSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "RequestFileMonitor",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.RequestFileMonitor",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/RequestFileMonitor",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztBatchSummarySchemaName": "verizonds"
+				}
+			},
+			{
+				"templateName": "ResponseFileMonitor",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ResponseFileMonitor",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/ResponseFileMonitor",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztBatchSummarySchemaName": "verizonds"
+				}
+			}
+		],
+		"sqlConfig": {
+			"sqlFolder": "{{GCS_BUCKET}}/ATT/att-gbs-moody/commons-sql-input/"
+		},
+		"dagConfig": {
+			"dagsFolder": "gs://us-east1-shared-private-com-9aa38d38-bucket/dags/"
+		}
+	},
+	"qa": {
+		"gcsBucket": "gs://usis-d360-dibi-data-npe",
+		"arguments": {
+			"runner": "DataflowRunner",
+			"project": "usis-d360-dev-npe-3082",
+			"subnetwork": "https://www.googleapis.com/compute/v1/projects/efx-gcp-usis-svpc-npe-4d36/regions/us-east1/subnetworks/usis-d360-dev-npe-net11-0",
+			"region": "us-east1",
+			"numWorkers": "3",
+			"maxNumWorkers": "3",
+			"usePublicIps": "false",
+			"serviceAccount": "usis-d360-cardlytics-npe@usis-d360-dev-npe-3082.iam.gserviceaccount.com"
+		},
+		"templates": [
+			{
+				"templateName": "loadVztDataShareTablePipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVztDataShareTablePipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztDataShareTablePipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"dbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "extractFromStDsOutToLoadVztDataSharePipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractFromStDsOutToLoadVztDataSharePipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractFromStDsOutToLoadVztDataSharePipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"dbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "extractDICNX0000002EfxVzwFilePipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractDICNX0000002EfxVzwFilePipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDICNX0000002EfxVzwFilePipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp"
+				}
+			},
+			{
+				"templateName": "extractVzDsFuzzyReqExtractPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractVzDsFuzzyReqExtractPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractVzDsFuzzyReqExtractPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vwVztDatashareDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "loadVZTBatchSummarryStatsTablePipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVZTBatchSummarryStatsTablePipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVZTBatchSummarryStatsTablePipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDataShareDbSchema": "verizonds",
+					"vztBatchSummaryDbSchema": "verizonds",
+					"vztBatchDbSchema": "verizonds",
+					"vztBatchStatsDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "extractStDsFuzzyRespToLoadVztDataSharePipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractStDsFuzzyRespToLoadVztDataSharePipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractStDsFuzzyRespToLoadVztDataSharePipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDatashareDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "loadVztBatchAndVztSummaryPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVztBatchAndVztSummaryPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztBatchAndVztSummaryPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDataShareDbSchema": "verizonds",
+					"vztBatchSummaryDbSchema": "verizonds",
+					"vztBatchDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "extractInactivatedOverrideRecordsPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractInactivatedOverrideRecordsPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractInactivatedOverrideRecordsPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vwVztDatashareDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "loadFromInactiveOvrerrideRecordsPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadFromInactiveOvrerrideRecordsPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadFromInactiveOvrerrideRecordsPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDataShareDbSchema": "verizonds",
+					"connexusKeyOverrideDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "extractCnxOverrideFileFromIntaractiveOverrideFilePipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractCnxOverrideFileFromIntaractiveOverrideFilePipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractCnxOverrideFileFromIntaractiveOverrideFilePipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp"
+				}
+			},
+			{
+				"templateName": "extractDivzcommsR00VztDsProdKrspPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractDivzcommsR00VztDsProdKrspPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDivzcommsR00VztDsProdKrspPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vwVztDataShareCnxRespDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "loadTablesAsPerRowGeneratorPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadTablesAsPerRowGeneratorPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadTablesAsPerRowGeneratorPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztStatDbSchema": "verizonds",
+					"vztBatchDbSchema": "verizonds",
+					"vztSummaryDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "loadVztDataShareCnxRepoFromVwVztDataSharePipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.LoadVztDataShareCnxRepoFromVwVztDataSharePipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztDataShareCnxRepoFromVwVztDataSharePipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vzDataShareCnxRepodbSchema": "verizonds",
+					"vwVztDatashareDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "extractDataShareSsaConInputPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.ExtractDataShareSsaConInputPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDataShareSsaConInputPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vzDatashareCnxRepoDbSchema": "verizonds"
+				}
+			},
+			{
+				"templateName": "deleteVzDataShareRepoPipeLine",
+				"mainClass": "com.equifax.dibibatch.gcp.varizon_cnx_keying.pipeline.DeleteVzDataShareRepoPipeLine",
+				"arguments": {
+					"templateLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/templates/deleteVzDataShareRepoPipeLine",
+					"stagingLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/staging",
+					"tempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"gcpTempLocation": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/temp",
+					"vztDataShareCnxRepoDbSchema": "verizonds"
+				}
+			}
+		],
+		"sqlConfig": {
+			"sqlFolder": "{{GCS_BUCKET}}/Verizon/dibi-batch-vzt-cnx-keying/commons-sql-input/"
+		},
+		"dagConfig": {
+			"dagsFolder": "gs://us-east1-shared-private-com-9aa38d38-bucket/dags/"
+		}
+	},
+	"uat": {
+		
+	},
+	"prod": {
+		
+	}
+}
+>>>>>>> b596b3c83bed633f046c6735c1604bd999824dae

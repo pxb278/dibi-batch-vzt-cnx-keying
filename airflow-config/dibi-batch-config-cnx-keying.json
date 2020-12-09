@@ -1,0 +1,141 @@
+{
+    "gcpConnId": "gcp_d360_dev_npe",
+    "project": "usis-d360-dev-npe-3082",
+    "region": "us-east1",
+    "tempLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/temp/",
+    "archivePath": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/archive/",
+    "suffix": ".txt",
+    "subnetwork": "https://www.googleapis.com/compute/v1/projects/efx-gcp-usis-svpc-npe-4d36/regions/us-east1/subnetworks/usis-d360-dev-npe-net11-0",
+    "RequestLoadProcess": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztDataShareTablePipeLine",
+        "input": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/input/VZT_DS_PROD.KREQ.0001222.20200916170129test.txt.pgpenc"
+    },
+    "ResponseLoad": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztDataShareTablePipeLine",
+        "input": "gs: //usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/input/VZT_DS_PROD.KREQ.0001222.20200916170129test.txt",
+        "processName": "Verizon_CNX_Keying"
+    },
+    "ResponseLoadForExtractDsCnxFile": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDICNX0000002EfxVzwFilePipeLine",
+        "input": "gs: //usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/input/ST_DS_CNX_IN_2000909_110000.txt",
+        "OutputPath": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/outbound",
+        "DsCnxFileName": "DICNX0000002-efx_vzw_"
+    },
+    "ResponseLoadForLoadVZTBatchSummarryStats": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVZTBatchSummarryStatsTablePipeLine",
+        "srcFileName": "VZT_DS_PROD.KREQ",
+        "ultimateBatchId": "1",
+        "CNXExtractCount": "9",
+        "sourceVbbRecordCount": "8",
+        "sourceVzbRecordCount": "7",
+        "sourceVztRecordCount": "6",
+        "sourceVzwRecordCount": "5",
+        "inputfileFinalCount": "9",
+        "inputfileLiveCount": "10",
+        "inputFileRecCount": "8",
+        "keyingFlagValueF": "1",
+        "keyingFlagValueT": "7",
+        "vztInsertCnt": "6",
+        "vztCnxReqFile": "DICNX0000002-efx_vzw_20200710160900.snd"
+    },
+    "ResponseLoadToExtractFromStDsOut": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/extractFromStDsOutToLoadVztDataSharePipeLine",
+        "input": "gs: //usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/input/ST_DS_OUT_*",
+        "processName": "Verizon-CNX-Keyin"
+    },
+    "ResponseLoadVzDsFuzzyReq": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/extractVzDsFuzzyReqExtractPipeLine",
+        "OutputPath": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/outbound",
+        "VzDsFuzzyReqFileName": "VZ_DS_Fuzzy_Req_Extract"
+    },
+    "ResponseLoadStDsFuzzyResp": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/extractStDsFuzzyRespToLoadVztDataSharePipeLine",
+        "inputPath": "gs: //usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/input/ST_DS_FUZZY_RESP*"
+    },
+    "ResponseLoadForLoadVztBatchAndVztSummary": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztBatchAndVztSummaryPipeLine",
+        "vztCnxRespFile": "CNX_RESPONSE_FILE_NAME",
+        "vztCnxRespFileCnt": "7",
+        "ultimateBatchId": "9"
+    },
+    "ResponseLoadextractInactivatedOverride": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/extractInactivatedOverrideRecordsPipeLine",
+        "OutputPath": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/outbound",
+        "InactivatedOverrideFileName": "Inactivated_Override_Records"
+    },
+    "ResponseLoadFromInactiveOvrerrideRecords": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/loadFromInactiveOvrerrideRecordsPipeLine",
+        "inputPath": "gs: //usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/outbound/Inactivated_Override_Records.txt",
+        "OutputPath": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/outbound",
+        "DeltaFileName": "cnxid_delta"
+    },
+    "ResponseLoadForExtractCnxOverrideFile": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/extractCnxOverrideFileFromIntaractiveOverrideFilePipeLine",
+        "inputPath": "gs: //usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/outbound/Inactivated_Override_Records.txt",
+        "OutputPath": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/outbound",
+        "CnxFileName": "cnx_override"
+    },
+    "ResponseLoadextractDivzcomms": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDivzcommsR00VztDsProdKrspPipeLine",
+        "OutputPath": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/outbound",
+        "DivzcommsFileName": "DIVZCOMMSR00-VZT_DS_PROD.KRSP"
+    },
+    "ResponseLoadRowGenerator": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/loadTablesAsPerRowGeneratorPipeLine",
+        "vztDSRespFileName": "vztDSRespFileName",
+        "vztDSRespFileCount": "10",
+        "vztHitCount": "12",
+        "vztNoHitCount": "9",
+        "ultimateBatchId": "9"
+    },
+    "ResponseLoadVztDataShareCnxRepo": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/loadVztDataShareCnxRepoFromVwVztDataSharePipeLine"
+    },
+    "ResponseDataShareSsaCon": {
+        "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/extractDataShareSsaConInputPipeLine",
+        "OutputPath": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/outbound",
+        "SsaConFileName": "DATASHARE_SSA_CON_INPUT"
+    },
+    "ResponseLoadDeleteTable": {
+    "templateLocation": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/templates/deleteVzDataShareRepoPipeLine",
+    "inputPath": "gs://usis-dibi-landing-zone-npe/Verizon/dibi-batch-vzt-cnx-keying/outbound/DATASHARE_SSA_CON_INPUT_480.txt"
+},
+"vault-dibi": {
+    "hcvKeystoreGcsBucketName": "usis-dibi-landing-zone-npe",
+    "hcvKeystoreGcsFilePath": "dev/security/truststore/cacerts",
+    "hcvUrl": "https://vault.uat.use1.crypto.gcp.efx",
+    "hcvNamespace": "usis-batchproducts/batch/d360/npe",
+    "hcvSecretPath": "dibi-dev01/smoke-test-pgpkeys-dibi-01",
+    "hcvEngineVersion": "2",
+    "hcvGcpRole": "d360-dibi-dev",
+    "hcvGcpProjectId": "usis-d360-dev-npe-3082",
+    "hcvGcpServiceAccount": "usis-d360-cardlytics-npe@usis-d360-dev-npe-3082.iam.gserviceaccount.com",
+   "hcvSSAKeystoreGcsBucketName": "usis-dibi-landing-zone-npe",
+   "hcvSSAKeystoreGcsFilePath": "dev/security/truststore/cacerts",
+   "hcvSSAUrl": "https://vault.uat.use1.crypto.gcp.efx",
+   "hcvSSANamespace": "usis-batchproducts/batch/d360/npe",
+   "hcvSSASecretPath": "dibi-dev01/smoke-test-pgpkeys-dibi-01",
+   "hcvSSAEngineVersion": "2",
+   "hcvSSAGcpRole": "d360-dibi-dev",
+   "hcvSSAGcpProjectId": "usis-d360-dev-npe-3082",
+   "hcvSSAGcpServiceAccount": "usis-d360-cardlytics-npe@usis-d360-dev-npe-3082.iam.gserviceaccount.com",
+   "hcvMFTKeystoreGcsBucketName": "usis-dibi-landing-zone-npe",
+   "hcvMFTKeystoreGcsFilePath": "dev/security/truststore/cacerts",
+   "hcvMFTUrl": "https://vault.uat.use1.crypto.gcp.efx",
+   "hcvMFTNamespace": "usis-batchproducts/batch/d360/npe",
+   "hcvMFTSecretPath": "dibi-dev01/smoke-test-pgpkeys-dibi-01",
+   "hcvMFTEngineVersion": "2",
+   "hcvMFTGcpRole": "d360-dibi-dev",
+   "hcvMFTGcpProjectId": "usis-d360-dev-npe-3082",
+   "hcvMFTGcpServiceAccount": "usis-d360-cardlytics-npe@usis-d360-dev-npe-3082.iam.gserviceaccount.com",
+   "hcvVZKeystoreGcsBucketName": "usis-dibi-landing-zone-npe",
+   "hcvVZKeystoreGcsFilePath": "dev/security/truststore/cacerts",
+   "hcvVZUrl": "https://vault.uat.use1.crypto.gcp.efx",
+   "hcvVZNamespace": "usis-batchproducts/batch/d360/npe",
+   "hcvVZSecretPath": "dibi-dev01/smoke-test-pgpkeys-dibi-01",
+   "hcvVZEngineVersion": "2",
+   "hcvVZGcpRole": "d360-dibi-dev",
+   "hcvVZGcpProjectId": "usis-d360-dev-npe-3082",
+   "hcvVZGcpServiceAccount": "usis-d360-cardlytics-npe@usis-d360-dev-npe-3082.iam.gserviceaccount.com"
+}
+}
